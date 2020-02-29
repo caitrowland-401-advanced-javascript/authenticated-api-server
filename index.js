@@ -6,7 +6,8 @@ const mongoose = require('mongoose')
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: false
 }
 mongoose.connect(MONGODB_URI, options, () => {
   console.log('Connected to MongoDB.')

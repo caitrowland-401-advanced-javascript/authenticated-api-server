@@ -6,6 +6,7 @@ const Role = require('../models/roles')
 const basicAuth = require('../middleware/basicAuth')
 const bearerAuth = require('../middleware/bearerAuth')
 const acl = require('../middleware/accessControlList');
+const model = require('../models/mongo-model')
 
 authRouter.post('/signup', async (req, res, next) => {
   // expects the user sent a req body with username and password, and name of role
@@ -21,22 +22,47 @@ authRouter.post('/signin', basicAuth, (req, res, next) => {
   res.status(200).json({ token: req.token })
 })
 
-authRouter.get('/users', bearerAuth, async (req, res, next) => {
+authRouter.get('/users', async (req, res, next) => {
   // send all users
   const allUsers = await User.find({})
   res.status(200).json(allUsers)
 })
 
+// authRouter.post('/patronus', bearerAuth, acl('create'), (req, res, next) => {
+//   patronus.push(req.body)
+//   res.json(req.body)
+// })
 
-
-authRouter.post('/patronus', bearerAuth, acl('create'), (req, res, next) => {
-  patronus.push(req.body)
-  res.json(req.body)
-})
 
 authRouter.post('/secret', bearerAuth, (req, res, next) => {
   res.status(200).json(req.user)
 
+})
+
+// update(id, record){
+//   return this.schema.findByIdAndUpdate(id, record, {new:true})
+// }
+
+authRouter.delete('/users/:id', (req, res, next) => {
+  let id = req.params.id;
+  return User.findByIdAndDelete(id)
+  .then(results => {
+    res.status(200).json(results)
+  })
+  .catch(next)
+  })
+
+
+authRouter.put('/users/:id', (req, res, next) => {
+  let id = req.params.id;
+  let record = req.body
+  return User.findByIdAndUpdate(id, record)
+  // console.log(id, record)
+  // console.log(updateUser)
+  .then(results => {
+    res.status(200).json(results)
+  })
+  .catch(next)
 })
 
 
