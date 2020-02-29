@@ -1,4 +1,4 @@
-const User = require('../models/users')
+const User = require('../../models/users/users')
 
 function bearerAuth (req, res, next) {
   // check if we have an authorization header
