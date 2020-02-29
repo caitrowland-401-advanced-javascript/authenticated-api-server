@@ -14,5 +14,14 @@ rolesRouter.post('/roles', async (req, res, next) => {
     res.status(200).json(created)
 })
 
+// rolesRouter.put('/roles/:id', (req, res, next) => {
+//     let id = req.params.id;
+//     let record = req.body;
+//     return Role.findByIdAndUpdate(id, record)
+//     .then(results => {
+//         res.status(200).json(results)
+//       })
+//       .catch(next)
+// })
 
 module.exports = rolesRouter;

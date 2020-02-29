@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const users = require('./users-schema')
 
 const SECRET = process.env.SECRET || 'changeme'
 
@@ -10,15 +11,15 @@ const userSchema = new mongoose.Schema({
   role: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', autopopulate: true}
 })
 
-userSchema.plugin(require('mongoose-autopopulate'))
+users.plugin(require('mongoose-autopopulate'))
 
-userSchema.pre('save', async function () {
+users.pre('save', async function () {
   if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 5)
   }
 })
 
-userSchema.methods.generateToken = function () {
+users.methods.generateToken = function () {
   const tokenData = {
     id: this._id,
     username: this.username,
@@ -27,13 +28,13 @@ userSchema.methods.generateToken = function () {
   return jwt.sign(tokenData, SECRET, {expiresIn: '15m', })
 }
 
-userSchema.statics.authenticateBasic = function (username, password) {
+users.statics.authenticateBasic = function (username, password) {
   return this.findOne({ username })
     .then(result => result && result.comparePassword(password))
     .catch(console.error)
 }
 
-userSchema.statics.authenticateToken = async function (token) {
+users.statics.authenticateToken = async function (token) {
   try {
     const tokenObject = jwt.verify(token, SECRET)
     console.log(tokenObject)
@@ -48,7 +49,11 @@ userSchema.statics.authenticateToken = async function (token) {
   }
 }
 
-userSchema.methods.comparePassword = function (password) {
+users.delete = function (id) {
+  return this.findByIdAndDelete(id)
+}
+
+users.methods.comparePassword = function (password) {
   // Compare a given password against the stored hashed password
   // If it matches, return the user instance, otherwise return null
   return bcrypt.compare(password, this.password)
@@ -56,4 +61,4 @@ userSchema.methods.comparePassword = function (password) {
     .catch(console.error)
 }
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', users)
