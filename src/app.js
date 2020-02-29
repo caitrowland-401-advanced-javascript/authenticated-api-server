@@ -18,9 +18,9 @@ const rolesRouter = require('./routes/rolesRouter')
 app.use(rolesRouter)
 
 // Catch-alls
-const notFound = require('./middleware/notFound')
+const notFound = require('./middleware/errorHandlers/notFound')
 app.use(notFound)
-const errorHandler = require('./middleware/errorHandler')
+const errorHandler = require('./middleware/errorHandlers/errorHandler')
 app.use(errorHandler)
 
 // Export the server and a start method

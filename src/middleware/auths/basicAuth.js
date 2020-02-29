@@ -1,5 +1,5 @@
 const base64 = require('base-64')
-const User = require('../models/users')
+const User = require('../../models/users/users')
 
 function basicAuth (req, res, next) {
   // check if we have an authorization header
