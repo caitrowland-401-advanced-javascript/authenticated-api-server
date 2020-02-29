@@ -22,28 +22,18 @@ authRouter.post('/signin', basicAuth, (req, res, next) => {
   res.status(200).json({ token: req.token })
 })
 
-authRouter.get('/users', async (req, res, next) => {
+authRouter.get('/users', bearerAuth, async (req, res, next) => {
   // send all users
   const allUsers = await User.find({})
   res.status(200).json(allUsers)
 })
-
-// authRouter.post('/patronus', bearerAuth, acl('create'), (req, res, next) => {
-//   patronus.push(req.body)
-//   res.json(req.body)
-// })
-
 
 authRouter.post('/secret', bearerAuth, (req, res, next) => {
   res.status(200).json(req.user)
 
 })
 
-// update(id, record){
-//   return this.schema.findByIdAndUpdate(id, record, {new:true})
-// }
-
-authRouter.delete('/users/:id', (req, res, next) => {
+authRouter.delete('/users/:id', bearerAuth, acl('delete'), (req, res, next) => {
   let id = req.params.id;
   return User.findByIdAndDelete(id)
   .then(results => {
@@ -53,12 +43,10 @@ authRouter.delete('/users/:id', (req, res, next) => {
   })
 
 
-authRouter.put('/users/:id', (req, res, next) => {
+authRouter.put('/users/:id', bearerAuth, acl('update'), (req, res, next) => {
   let id = req.params.id;
   let record = req.body
   return User.findByIdAndUpdate(id, record)
-  // console.log(id, record)
-  // console.log(updateUser)
   .then(results => {
     res.status(200).json(results)
   })
