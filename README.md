@@ -30,6 +30,6 @@ i.e.
 #### Tests
 
 - npm test 
-- Some test written, but had issues with validating JWT token
+- Some test written, but not sure how to test with bearer auth
 
 
