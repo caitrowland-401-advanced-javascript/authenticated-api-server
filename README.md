@@ -6,7 +6,7 @@
 
 ### Links and Resources
 
-- [submission PR](https://github.com/caitrowland-401-advanced-javascript/authenticated-api-server/pull/4)
+- [submission PR](https://github.com/caitrowland-401-advanced-javascript/authenticated-api-server/pull/5)
 - [ci/cd](https://github.com/caitrowland-401-advanced-javascript/authenticated-api-server/actions) (GitHub Actions)
 
 ### Setup
