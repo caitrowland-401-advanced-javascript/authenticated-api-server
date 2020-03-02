@@ -52,7 +52,7 @@ describe('Auth Router', () => {
         })
 
         // it('Will update with admin privlages', () =>{
-        //     return mockRequest.put
+        //     return mockRequest.put()
         // })
     })
 })
