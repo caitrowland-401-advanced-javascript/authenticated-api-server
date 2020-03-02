@@ -1,10 +1,12 @@
 {
-  "name": "bearer-auth-demo",
+  "name": "authenticate-api-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
+    "test-watch": "jest --watchAll --coverage",
+    "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "keywords": [],
@@ -17,7 +19,11 @@
     "jest": "^25.1.0",
     "nodemon": "^2.0.2"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "dependencies": {
+    "@code-fellows/supergoose": "^1.0.1",
     "base-64": "^0.1.0",
     "bcrypt": "^4.0.0",
     "cors": "^2.8.5",
