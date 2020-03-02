@@ -43,9 +43,9 @@ users.statics.authenticateToken = async function (token) {
   }
 }
 
-users.delete = function (id) {
-  return this.findByIdAndDelete(id)
-}
+// users.delete = function (id) {
+//   return this.findByIdAndDelete(id)
+// }
 
 users.methods.comparePassword = function (password) {
   // Compare a given password against the stored hashed password
